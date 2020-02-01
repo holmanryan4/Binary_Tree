@@ -6,67 +6,114 @@ using System.Threading.Tasks;
 
 namespace BinaryTree
 {
-    class BinaryTree : Node
+    class BinaryTree 
     {
-
-
 
         //Member Variables (HAS A)
         public Node root;
-        public Node current;
-
 
         //Constructor
 
 
         //Member Methods (CAN DO)
-        public void Search()
-        {
-           
-        }
-        public Node Add(Node root, int value)
+        public bool Search(int value)
         {
             if (root == null)
             {
-                root = new Node();
-                root.data = value;
-                Console.WriteLine("The tree root is "+ root);
+                return false;
+                
+               
             }
-
-            if (value >= root.data)
+            Node current = root;
+            while (true)
             {
-                if (root.LeftChild == null)
+                if (value == current.value)
                 {
-                    root.LeftChild = new Node();
-                    Console.WriteLine("New leftchild is " + root.LeftChild);
+                    return true;
                 }
-            }
-            else
-            {
-                if (value < root.data)
+                else if (value >= current.value)
                 {
-                    if (root.RightChild == null)
+                    if(current.RightChild == null)
                     {
-                        root.RightChild = new Node();
-                        Console.WriteLine("New rightchild is " + root.RightChild);
+                        return false;
+                    }
+                    else
+                    {
+                        current.RightChild = current;
 
                     }
                 }
+                else
+                {
+                    if (current.LeftChild == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        current.LeftChild = current;
+
+                    }
+                    
+                }
             }
             
-            if (current.data > value)
-            {
-              current = current.RightChild;
-                Console.WriteLine("New rightchild is " + root.RightChild);
-            }
-            else if(current.data <= value)
-            {
-                current = current.LeftChild;
-                Console.WriteLine("New leftchild is " + root.LeftChild);
 
-            }
-            return null;
         }
-        
+        public void Add(int value)
+        {
+            Node current;
+            if (root == null)
+            {
+                root = new Node(value);
+                //root.data = value;
+                Console.WriteLine("The tree root is "+ value);
+                Console.ReadLine();
+            }
+            
+            else
+            {
+                current = root;
+
+                while (true)
+                {
+                    if (value >= current.value)
+                    {
+                        if (current.RightChild == null)
+                        {
+                            current.RightChild = new Node(value);
+                            Console.WriteLine("New rightchild is " + current.RightChild.value);
+                            break;
+                        }
+                        else
+                        {
+                            current = current.RightChild;
+                        }
+                    }
+                    else
+                    {
+                        if (value <= current.value)
+                        {
+                            if (current.LeftChild == null)
+                            {
+                                current.LeftChild = new Node(value);
+                                Console.WriteLine("New leftchild is " + current.LeftChild.value);
+                                break;
+                            }
+                            else
+                            {
+                                current = current.LeftChild;
+                            }
+                        }
+
+                    }
+                }
+               
+            }
+           
+            Console.ReadLine();
+
+        }
+       
     }
 }
